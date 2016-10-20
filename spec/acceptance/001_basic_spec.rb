@@ -1,12 +1,10 @@
 require 'spec_helper_acceptance'
 
-describe "filebeat class" do
-
+describe 'filebeat class' do
   package_name = 'filebeat'
   service_name = 'filebeat'
 
   context 'default parameters' do
-
     let(:pp) do
       <<-EOS
       class { 'filebeat':
@@ -51,7 +49,7 @@ describe "filebeat class" do
       EOS
     end
 
-    it_behaves_like "an idempotent resource"
+    it_behaves_like 'an idempotent resource'
 
     describe service(service_name) do
       it { should be_enabled }
