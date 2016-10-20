@@ -82,9 +82,9 @@ class filebeat (
   }
 
   anchor { 'filebeat::begin': } ->
-  class { 'filebeat::install': } ->
-  class { 'filebeat::config': } ->
-  class { 'filebeat::service': } ->
+  class { '::filebeat::install': } ->
+  class { '::filebeat::config': } ->
+  class { '::filebeat::service': } ->
   anchor { 'filebeat::end': }
 
   if !empty($prospectors_final) {
