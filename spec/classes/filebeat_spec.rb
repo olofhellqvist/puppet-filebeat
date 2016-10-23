@@ -14,6 +14,16 @@ describe 'filebeat', type: :class do
 
   context 'defaults' do
     it { is_expected.to contain_package('filebeat') }
+    it { is_expected.to contain_anchor('filebeat::begin') }
+    it { is_expected.to contain_anchor('filebeat::end') }
+    it { is_expected.to contain_class('filebeat::install') }
+    it { is_expected.to contain_class('filebeat::config') }
+    it { is_expected.to contain_anchor('filebeat::install::begin') }
+    it { is_expected.to contain_anchor('filebeat::install::end') }
+    it { is_expected.to contain_class('filebeat::install::linux') }
+    it { is_expected.to contain_class('filebeat::repo') }
+    it { is_expected.to contain_class('filebeat::service') }
+    it { should_not contain_class('filebeat::install::windows') }
     it do
       is_expected.to contain_file('filebeat.yml').with(
         path: '/etc/filebeat/filebeat.yml',
@@ -81,6 +91,8 @@ describe 'filebeat', type: :class do
       }
     end
 
+    it { is_expected.to contain_class('filebeat::install::windows') }
+    it { should_not contain_class('filebeat::install::linux') }
     it { is_expected.to contain_file('filebeat.yml').with_path('C:/Program Files/Filebeat/filebeat.yml') }
     it do
       is_expected.to contain_file('filebeat-config-dir').with(
