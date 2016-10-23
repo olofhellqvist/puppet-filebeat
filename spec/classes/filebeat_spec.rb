@@ -13,7 +13,9 @@ describe 'filebeat', type: :class do
   end
 
   context 'defaults' do
+    it { is_expected.to compile.with_all_deps }
     it { is_expected.to contain_package('filebeat') }
+    it { is_expected.to contain_class('filebeat::params') }
     it { is_expected.to contain_anchor('filebeat::begin') }
     it { is_expected.to contain_anchor('filebeat::end') }
     it { is_expected.to contain_class('filebeat::install') }
@@ -65,6 +67,14 @@ describe 'filebeat', type: :class do
         puppetversion: Puppet.version
       }
     end
+    it { is_expected.to compile.with_all_deps }
+    it { is_expected.to contain_class('filebeat::params') }
+    it { is_expected.to contain_anchor('filebeat::begin') }
+    it { is_expected.to contain_anchor('filebeat::end') }
+    it { is_expected.to contain_class('filebeat::install') }
+    it { is_expected.to contain_class('filebeat::config') }
+    it { is_expected.to contain_anchor('filebeat::install::begin') }
+    it { is_expected.to contain_anchor('filebeat::install::end') }
 
     it do
       is_expected.to contain_yumrepo('beats').with(
@@ -90,6 +100,14 @@ describe 'filebeat', type: :class do
         puppetversion: Puppet.version
       }
     end
+    # it { is_expected.to compile.with_all_deps } # Omitted because of https://github.com/rodjek/rspec-puppet/issues/192
+    it { is_expected.to contain_class('filebeat::params') }
+    it { is_expected.to contain_anchor('filebeat::begin') }
+    it { is_expected.to contain_anchor('filebeat::end') }
+    it { is_expected.to contain_class('filebeat::install') }
+    it { is_expected.to contain_class('filebeat::config') }
+    it { is_expected.to contain_anchor('filebeat::install::begin') }
+    it { is_expected.to contain_anchor('filebeat::install::end') }
 
     it { is_expected.to contain_class('filebeat::install::windows') }
     it { should_not contain_class('filebeat::install::linux') }
